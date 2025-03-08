@@ -11,6 +11,10 @@ public class ProductCardService {
   @Autowired
   private ProductCardRepository productCardRepository;
 
+  public ProductCardModel saveProduct(ProductCardModel product) {
+    return productCardRepository.save(product);
+  }
+
   public List<ProductCardModel> getAllProducts() {
     return productCardRepository.findAll();
   }
