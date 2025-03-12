@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Ping Render API
-        run: curl -m 5 https://titan-api-ffre.onrender.com || echo "Render API might be down"
+        run: curl -m 4 https://titan-api-ffre.onrender.com || echo "Render API might be down"
 
       - name: Keep NeonDB Active
         env:
