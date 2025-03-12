@@ -15,18 +15,18 @@ public class ProductCardService {
   @Autowired
   private ProductCardRepository productCardRepository;
 
-  @CacheEvict(value = {"productsList", "products"}, allEntries = true)
+//  @CacheEvict(value = {"productsList", "products"}, allEntries = true)
   public ProductCardModel saveProduct(ProductCardModel product) {
     return productCardRepository.save(product);
   }
 
-  @Cacheable(value = "allProducts")
+//  @Cacheable(value = "allProducts")
   public List<ProductCardModel> getAllProducts() {
     System.out.println("Fetching all products from database...");
     return productCardRepository.findAll();
   }
 
-  @Cacheable(value = "products", key = "#id")
+//  @Cacheable(value = "products", key = "#id")
   public ProductCardModel getProductById(Long id) {
     System.out.println("Fetching from database...");
     return productCardRepository.findById(id).orElse(null);
