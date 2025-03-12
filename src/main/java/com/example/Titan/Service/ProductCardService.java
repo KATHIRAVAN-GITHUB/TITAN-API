@@ -4,6 +4,7 @@ import com.example.Titan.Model.ProductCardModel;
 import com.example.Titan.Repository.ProductCardRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 import org.springframework.cache.annotation.Cacheable;
@@ -20,7 +21,7 @@ public class ProductCardService {
   @Autowired
   private ProductCardRepository productCardRepository;
 
-  @CachePut(value = "products", key = "#product.id")
+  @CacheEvict(value = {"productsList", "products"}, allEntries = true)
   public ProductCardModel saveProduct(ProductCardModel product) {
     return productCardRepository.save(product);
   }
