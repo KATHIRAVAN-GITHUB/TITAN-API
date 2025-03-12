@@ -16,5 +16,7 @@ jobs:
         env:
           DATABASE_URL: "postgres://neondb_owner:npg_tzFEWJQVe30i@ep-misty-flower-a8djo7lt-pooler.eastus2.azure.neon.tech/neondb?sslmode=require"
         run: |
-          sudo apt-get install -y postgresql-client
+          export DEBIAN_FRONTEND=noninteractive
+          apt-get update && apt-get install -y postgresql-client
+          PGPASSWORD=$(echo $DATABASE_URL | sed -E 's/.*:\/\/[^:]+:([^@]+)@.*/\1/') \
           psql "$DATABASE_URL" -c "SELECT 1;" || echo "NeonDB might be down"

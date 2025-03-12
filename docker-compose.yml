@@ -21,4 +21,4 @@ services:
     image: redis:alpine
     container_name: redis
     ports:
-      - "2002:2002"
+      - "6379:6379"
