@@ -31,7 +31,5 @@ public class ProductCardService {
     System.out.println("Fetching from database...");
     return productCardRepository.findById(id).orElse(null);
   }
-
-
 }
 
