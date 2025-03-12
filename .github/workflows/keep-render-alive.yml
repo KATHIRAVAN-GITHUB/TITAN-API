@@ -1,8 +1,8 @@
-name: Keep Render and NeonDB Alive
+name: Keep Render Alive
 
 on:
   schedule:
-    - cron: "*/4 * * * *"  # Runs every 4 minutes
+    - cron: "*/1 * * * *"  # Runs every 1 minutes
   workflow_dispatch:  # Allows manual trigger
 
 jobs:
@@ -10,20 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Ping Render API
-        run: curl -m 4 https://titan-api-ffre.onrender.com || echo "Render API might be down"
-
-      - name: Keep NeonDB Active
-        env:
-          DATABASE_URL: "postgres://neondb_owner:npg_tzFEWJQVe30i@ep-misty-flower-a8djo7lt-pooler.eastus2.azure.neon.tech/neondb?sslmode=require"
-        run: |
-          export DEBIAN_FRONTEND=noninteractive
-          apt-get update && apt-get install -y postgresql-client
-          
-          # Extract credentials
-          DB_USER=$(echo "$DATABASE_URL" | sed -E 's/postgres:\/\/([^:]+):.*/\1/')
-          DB_PASSWORD=$(echo "$DATABASE_URL" | sed -E 's/postgres:\/\/[^:]+:([^@]+)@.*/\1/')
-          DB_HOST=$(echo "$DATABASE_URL" | sed -E 's/.*@([^:/]+).*/\1/')
-          DB_NAME=$(echo "$DATABASE_URL" | sed -E 's/.*\/([^?]+).*/\1/')
-          
-          # Connect to NeonDB
-          PGPASSWORD="$DB_PASSWORD" psql -h "$DB_HOST" -U "$DB_USER" -d "$DB_NAME" -c "SELECT 1;" || echo "NeonDB might be down"
+        run: curl -m 1 https://titan-api-ffre.onrender.com || echo "Render might be down"
